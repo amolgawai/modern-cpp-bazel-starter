@@ -1,0 +1,44 @@
+#+TITLE: Modern C++ Practice
+#+AUTHOR: Amol Gawai
+#+STARTUP: Overview
+* Introduction
+This is a starter template for a multi lib, multi app project born out of my needs.
+This template is based on starter project [[https://github.com/TheLartians/ModernCppStarter][ModernCppStarter]], the cmake is loosly based on [[https://cliutils.gitlab.io/modern-cmake/][Introduction to Modern CMake]] and some cmake modules from [[https://github.com/bsamseth/cpp-project][cpp-project boilerplate]].
+See [[file:README_Original.md][ModernCppStarter README for more details about originating concepts]].
+* Guiding Principles
+** Repository Structure
+- As far as possible, all directories are self contained
+- Executables are in the "apps" directory, one directory per app
+- Libraries are in "libs" directory, one directory per library
+- Every app or library directory has one or all of directories viz. "include", "src", "tests"
+- Each namespace gets own directory inside the above three
+** Build System
+- CMake is primary build system(version 3.23), Bazel might be added later
+- Out of source build and dependency management
+- Every target (executable or library) CMakeLists.txt is self contained (i.e. does not depend directly on the external structure)
+- The main CMakeLists.txt makes all the dependencies available to the apps and libraries
+- [[https://github.com/cpm-cmake/CPM.cmake][CPM]] is used for external dependency download and setup
+* How to use this template
+1. Use the "Use this template" button on github to create a new repository with all the content of this starter, modify according to your needs.
+2. Clone this repo locally and remove/change the remote
+
+* Building with CMake
+#+BEGIN_SRC shell
+  # configure build with ninja
+   cmake -S . -B build -GNinja
+  # build everything
+   cmake --build build
+  # build specific target
+   cmake --build build --target <name>
+  # configure with code quality tools namely sanitizers, cppcheck, include what you use (iwyu), codecoverage
+   cmake -S . -B build -GNinja -DUSE_SANITIZER='Memory;MemoryWithOrigins;Thread;Leak;Address;Undefined' -DUSE_STATIC_ANALYZER='clang-tidy;iwyu;cppcheck' -DENABLE_CODE_COVERAGE=ON -DCMAKE_BUILD_TYPE=Coverage
+  # run codecoverage for tests (e.g. greeter tests)
+   cmake --build build --target coverage_greeter
+  # open the code coverage report
+   open build/coverage_out/index.html
+#+END_SRC
+* References
+- [[https://cliutils.gitlab.io/modern-cmake/][An Introduction to modern CMake]]
+- [[https://pabloariasal.github.io/2018/02/19/its-time-to-do-cmake-right/][Article - It's Time to do CMake right]]
+- [[https://www.youtube.com/watch?v=y7ndUhdQuU8][YouTube - More Modern CMake]]
+- [[https://www.youtube.com/watch?v=bsXLMQ6WgIk][YouTube - Daniel Pfifer - Effective CMake]]
