@@ -1,14 +1,21 @@
 # bazelrc file
+# ref - https://chromium.googlesource.com/external/github.com/grpc/grpc/+/HEAD/tools/bazel.rc
+# ref - https://github.com/facebookresearch/CompilerGym/blob/development/.bazelrc
+
+# generic
+run --color=yes
+build --color=yes
+
 # for platform-appropriate cxxopts
 common --enable_platform_specific_config
-build:windows --cxxopt='/std:c++14'
-build:windows --host_cxxopt='/std:c++14'
-build:linux   --cxxopt='-std=c++14'
-build:linux   --host_cxxopt='-std=c++14'
-build:macos   --cxxopt='-std=c++14'
-build:macos   --host_cxxopt='-std=c++14'
-build:freebsd   --cxxopt='-std=c++14'
-build:freebsd   --host_cxxopt='-std=c++14'
+build:windows --cxxopt='/std:c++17'
+build:windows --host_cxxopt='/std:c++17'
+build:linux   --cxxopt='-std=c++17'
+build:linux   --host_cxxopt='-std=c++17'
+build:macos   --cxxopt='-std=c++17'
+build:macos   --host_cxxopt='-std=c++17'
+build:freebsd   --cxxopt='-std=c++17'
+build:freebsd   --host_cxxopt='-std=c++17'
 # Don't trigger --config=<host platform> when cross-compiling.
 build:android --noenable_platform_specific_config
 build:ios --noenable_platform_specific_config
